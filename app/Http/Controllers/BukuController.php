@@ -12,11 +12,28 @@ class BukuController extends Controller
     /**
      * Menampilkan seluruh data buku.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $allBuku = Buku::with(['kategori', 'penerbit'])->get();
+    // [BARU] Mengambil kata kunci pencarian dari URL.
+    $keyword = trim((string) $request->query('q', ''));
 
-        return view('buku.index', compact('allBuku'));
+    // Memuat relasi kategori dan penerbit.
+    $query = Buku::with(['kategori', 'penerbit']);
+
+    // [BARU] Mencari berdasarkan judul atau pengarang.
+    // Nama kolom harus sesuai dengan database dan model.
+    if ($keyword !== '') {
+        $query->where(function ($search) use ($keyword) {
+            $search->where('judul', 'like', '%' . $keyword . '%')
+                   ->orWhere('pengarang', 'like', '%' . $keyword . '%');
+        });
+    }
+
+    // [DIUBAH] Gunakan nama variabel yang dipakai Blade.
+    $allBuku = $query->get();
+
+    // [DIUBAH] Kirim $allBuku dan $keyword ke halaman.
+    return view('Buku.index', compact('allBuku', 'keyword'));
     }
 
     /**

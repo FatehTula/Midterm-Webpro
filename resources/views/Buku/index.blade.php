@@ -9,7 +9,32 @@
 @if (session('success'))
     <p class="success">{{ session('success') }}</p>
 @endif
+        <form action="{{ route('buku.index') }}" method="GET">
+            <input
+                type="search"
+                name="q"
+                placeholder="Cari judul buku atau pengarang..."
+                value="{{ $keyword ?? request('q', '') }}"
+            >
 
+            <button type="submit" class="tombol">
+                Cari
+            </button>
+
+            @if (request('q'))
+                <a href="{{ route('buku.index') }}" class="tombol">
+                    Reset
+                </a>
+            @endif
+        </form>
+
+        @if (request('q'))
+            <p>
+                Hasil pencarian untuk
+                <strong>{{ request('q') }}</strong>:
+                {{ $allBuku->count() }} buku ditemukan.
+            </p>
+        @endif
 <table>
     <thead>
         <tr>
@@ -82,11 +107,16 @@
                 </td>
             </tr>
         @empty
-            <tr>
-                <td colspan="7" class="data-kosong">
-                    Belum ada data buku.
-                </td>
-            </tr>
+           <tr>
+        <td colspan="7" class="data-kosong">
+            @if (request('q'))
+                Tidak ada buku yang cocok dengan kata kunci
+                "{{ request('q') }}".
+            @else
+                Belum ada data buku.
+            @endif
+        </td>
+    </tr>
         @endforelse
     </tbody>
 </table>
