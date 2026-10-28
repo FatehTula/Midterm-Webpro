@@ -1,732 +1,652 @@
 
-/* =========================================
-   1. PENGATURAN DASAR
-========================================= */
-
-* {
-    box-sizing: border-box;
-}
+/* =========================================================
+   PUSTAKA — FOREST + SAGE THEME
+   [BARU] Tempelkan di bagian paling bawah style.css
+   ========================================================= */
 
 :root {
-    --warna-utama: #34495e;
-    --warna-utama-hover: #243748;
-    --warna-aksen: #477dbb;
-    --warna-latar: #f3f6fb;
-    --warna-putih: #ffffff;
-    --warna-teks: #263445;
-    --warna-teks-sekunder: #64748b;
-    --warna-border: #e2e8f0;
-    --warna-bahaya: #dc3545;
-    --warna-bahaya-hover: #b02a37;
-    --bayangan: 0 8px 25px rgba(30, 41, 59, 0.08);
-    --radius: 12px;
+    --forest: #234236;
+    --forest-hover: #192F26;
+    --sage: #6B8F71;
+    --sage-light: #EAF0E7;
+    --ivory: #F5F7F0;
+    --white: #FFFFFF;
+    --danger: #B91C1C;
+    --danger-hover: #991B1B;
+    --text-primary: #26382D;
+    --text-muted: #68766B;
+    --border: #DDE5D9;
+    --table-stripe: #F8FAF6;
+
+    --radius-card: 14px;
+    --radius-control: 8px;
+    --shadow-soft: 0 8px 28px rgba(35, 66, 54, 0.07);
 }
 
+/* ================= DASAR HALAMAN ================= */
+
 html {
-    scroll-behavior: smooth;
+    min-height: 100%;
 }
 
 body {
     margin: 0;
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--warna-latar);
-    color: var(--warna-teks);
+    background: var(--ivory);
+    color: var(--text-primary);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
     line-height: 1.6;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
-/* =========================================
-   2. CONTAINER UTAMA
-========================================= */
+/* ================= KONTTAINER UTAMA ================= */
 
 .container {
-    width: 100%;
-    max-width: 1400px;
-    min-height: 490px;
-    margin: 40px auto 30px;
-    padding: 30px;
-    background-color: var(--warna-putih);
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    border-radius: 16px;
-    box-shadow: var(--bayangan);
+    width: calc(100% - 40px);
+    max-width: 1320px;
+    margin: 28px auto;
+    padding: 28px 32px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
 }
 
+/* ================= HEADER APLIKASI ================= */
 
-/* =========================================
-   3. JUDUL UTAMA
-========================================= */
-
-h1 {
-    margin: 0 0 24px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--warna-border);
-    text-align: center;
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--warna-utama);
-    letter-spacing: 0.3px;
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border);
 }
 
-
-/* =========================================
-   4. INFORMASI PENGGUNA
-========================================= */
-
-.container > p {
-    color: var(--warna-teks-sekunder);
-    margin: 0 0 15px;
+.app-brand {
+    min-width: 0;
 }
 
-.container > p strong {
-    color: var(--warna-utama);
+.app-header .app-title {
+    margin: 0;
+    color: var(--forest);
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 750;
+    line-height: 1.25;
+    letter-spacing: -0.7px;
+    text-align: left;
 }
 
+.app-subtitle {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
 
-/* =========================================
-   5. NAVIGASI
-========================================= */
+.account-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.account-actions .user-greeting {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.account-actions strong {
+    color: var(--forest);
+}
+
+.account-actions form {
+    margin: 0;
+}
+
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-control);
+    background: var(--danger);
+    color: var(--white);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: var(--danger-hover);
+}
+
+/* ================= NAVIGASI ================= */
 
 .nav {
-    margin-bottom: 30px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--warna-border);
+    margin: 0 0 26px;
+    padding: 16px 0 20px;
+    border-bottom: 1px solid var(--border);
 }
 
 .nav ul {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
     list-style: none;
+}
+
+.nav li {
     margin: 0;
     padding: 0;
 }
 
-.nav ul li a {
-    display: inline-block;
-    padding: 10px 22px;
-    background-color: var(--warna-utama);
-    color: var(--warna-putih);
-    text-decoration: none;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
+.nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 17px;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: var(--radius-control);
+    background: var(--forest);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
     transition:
-        background-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
-.nav ul li a:hover {
-    background-color: var(--warna-utama-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(36, 55, 72, 0.18);
+.nav a:hover {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: var(--white);
+    transform: translateY(-1px);
 }
 
-
-/* =========================================
-   6. SUBJUDUL
-========================================= */
-
-h2,
-h3 {
-    color: var(--warna-utama);
-    line-height: 1.4;
+/* [BARU] Penanda halaman yang sedang aktif */
+.nav a.active {
+    background: var(--sage-light);
+    border-color: var(--sage);
+    color: var(--forest);
 }
 
-h2 {
-    margin: 25px 0 18px;
-    font-size: 25px;
+/* ================= JUDUL KONTEN ================= */
+
+.container > h2,
+.container > h3 {
+    color: var(--forest);
+    line-height: 1.35;
+    letter-spacing: -0.3px;
 }
 
-h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
+.container > h2 {
+    margin-top: 26px;
+    margin-bottom: 18px;
 }
 
-
-/* =========================================
-   7. LINK UMUM
-========================================= */
-
-a {
-    color: var(--warna-aksen);
-    transition: color 0.2s ease;
+.container > h3 {
+    margin-top: 22px;
+    margin-bottom: 18px;
 }
 
-a:hover {
-    color: var(--warna-utama-hover);
-}
-
-
-/* =========================================
-   8. TOMBOL UMUM
-========================================= */
+/* ================= TOMBOL UMUM ================= */
 
 .tombol {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-
-    padding: 10px 16px;
+    padding: 9px 14px;
     border: 1px solid transparent;
-    border-radius: 7px;
-
-    background-color: var(--warna-utama);
-    color: var(--warna-putih);
-
+    border-radius: var(--radius-control);
+    background: var(--forest);
+    color: var(--white);
     font-family: inherit;
     font-size: 14px;
     font-weight: 600;
     line-height: 1.4;
     text-decoration: none;
-    text-align: center;
-    vertical-align: middle;
-
     cursor: pointer;
-
     transition:
-        background-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .tombol:hover {
-    background-color: var(--warna-utama-hover);
-    color: var(--warna-putih);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(36, 55, 72, 0.15);
+    background: var(--sage);
+    border-color: var(--sage);
+    color: var(--white);
 }
 
-.tombol:focus-visible {
-    outline: 3px solid rgba(71, 125, 187, 0.35);
-    outline-offset: 3px;
+/* [DIPERTAHANKAN] Hapus menggunakan warna merah */
+.form-hapus .tombol {
+    background: var(--danger);
+    border-color: var(--danger);
 }
 
-
-/* =========================================
-   9. TOMBOL LOGOUT
-========================================= */
-
-form[action*="logout"] .tombol {
-    background-color: var(--warna-bahaya);
+.form-hapus .tombol:hover {
+    background: var(--danger-hover);
+    border-color: var(--danger-hover);
 }
-
-form[action*="logout"] .tombol:hover {
-    background-color: var(--warna-bahaya-hover);
-}
-
-
-/* =========================================
-   10. FORM INPUT
-========================================= */
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 7px;
-    color: var(--warna-teks);
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    display: block;
-    width: 100%;
-    padding: 11px 13px;
-
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-
-    background-color: var(--warna-putih);
-    color: var(--warna-teks);
-
-    font-family: inherit;
-    font-size: 14px;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #94a3b8;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--warna-aksen);
-    box-shadow: 0 0 0 3px rgba(71, 125, 187, 0.14);
-}
-
-.form-group textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-
-/* =========================================
-   11. TABEL DATA
-========================================= */
-
-table {
-    width: 100%;
-    margin-top: 24px;
-    border-collapse: separate;
-    border-spacing: 0;
-    table-layout: auto;
-    background-color: var(--warna-putih);
-    border: 1px solid var(--warna-border);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-table th,
-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--warna-border);
-    text-align: left;
-    vertical-align: middle;
-}
-
-table th {
-    background-color: var(--warna-utama);
-    color: var(--warna-putih);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-}
-
-table td {
-    color: var(--warna-teks);
-    font-size: 14px;
-}
-
-table tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-table tbody tr:nth-child(even) {
-    background-color: #f8fafc;
-}
-
-table tbody tr:hover {
-    background-color: #edf4fc;
-}
-
-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* Lebar kolom tabel kategori */
-
-.kolom-nomor {
-    width: 16%;
-}
-
-.kolom-nama {
-    width: 46%;
-}
-
-.kolom-aksi {
-    width: 38%;
-}
-
-
-/* =========================================
-   12. AKSI DETAIL, EDIT, DAN HAPUS
-========================================= */
 
 .aksi-container {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.form-hapus {
+    display: inline-flex;
+    margin: 0;
+}
+
+/* ================= TABEL CRUD ================= */
+
+.container table {
     width: 100%;
-    white-space: nowrap;
+    margin: 18px 0;
+    border: 1px solid var(--border);
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 10px;
+    background: var(--white);
 }
 
-.aksi-container .form-hapus {
-    display: inline-flex;
-    align-items: center;
-    flex: 0 0 auto;
-    margin: 0;
-    padding: 0;
+.container table th,
+.container table td {
+    padding: 13px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
 }
 
-.aksi-container .tombol {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-
-    margin: 0;
-    padding: 8px 12px;
-
-    border: 1px solid transparent;
-    border-radius: 6px;
-
-    background-color: var(--warna-utama);
-    color: var(--warna-putih);
-
-    font-family: inherit;
+.container table thead th {
+    background: var(--forest);
+    color: var(--white);
     font-size: 13px;
-    font-weight: 600;
-    line-height: 1.4;
-    text-decoration: none;
-    cursor: pointer;
+    font-weight: 700;
 }
 
-.aksi-container .tombol:hover {
-    background-color: var(--warna-utama-hover);
-    color: var(--warna-putih);
+.container table tbody tr:nth-child(even) {
+    background: var(--table-stripe);
 }
 
-/* Tombol hapus */
-
-.aksi-container .form-hapus .tombol {
-    background-color: var(--warna-bahaya);
+.container table tbody tr:hover {
+    background: var(--sage-light);
 }
 
-.aksi-container .form-hapus .tombol:hover {
-    background-color: var(--warna-bahaya-hover);
+.container table tbody tr:last-child td {
+    border-bottom: 0;
 }
 
+/* ================= INPUT, SELECT, DAN FORM ================= */
 
-/* =========================================
-   13. PESAN KETIKA DATA KOSONG
-========================================= */
+.container input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="file"]),
+.container select,
+.container textarea {
+    max-width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #CBD5C8;
+    border-radius: var(--radius-control);
+    background: var(--white);
+    color: var(--text-primary);
+    font: inherit;
+}
+
+.container input:focus,
+.container select:focus,
+.container textarea:focus {
+    outline: none;
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(107, 143, 113, 0.16);
+}
+
+.filter-buku {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.container .filter-buku input[type="search"] {
+    flex: 1;
+    min-width: 220px;
+}
+
+.container .filter-buku select {
+    min-width: 160px;
+}
+
+/* ================= PESAN STATUS ================= */
+
+.success {
+    padding: 12px 15px;
+    border: 1px solid #C5D8C1;
+    border-radius: var(--radius-control);
+    background: var(--sage-light);
+    color: var(--forest);
+}
 
 .data-kosong {
-    padding: 24px;
-    margin-top: 20px;
-    border: 1px dashed #cbd5e1;
-    border-radius: 10px;
-    background-color: #f8fafc;
-    text-align: center;
-    color: var(--warna-teks-sekunder);
+    padding: 22px !important;
+    color: var(--text-muted);
+    text-align: center !important;
 }
 
+/* ================= PAGINATION ================= */
 
-/* =========================================
-   14. FOOTER
-========================================= */
-
-.footer {
-    margin-top: 30px;
-    padding: 18px 0 5px;
-    border-top: 1px solid var(--warna-border);
-    text-align: center;
-    font-size: 13px;
-    color: var(--warna-teks-sekunder);
+.container .pagination-wrap {
+    margin: 22px 0;
 }
 
-
-/* =========================================
-   15. FORM LOGIN
-========================================= */
-
-/*
-   Tidak menggunakan selector body khusus login.
-   Dengan begitu, halaman data dan halaman login
-   tetap bisa memiliki tata letak berbeda.
-*/
-
-body:has(.login-container) {
-    min-height: 100vh;
+.container .pagination-wrap nav {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 24px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.login-container {
-    width: 100%;
-    max-width: 380px;
-    padding: 30px;
-
-    background-color: var(--warna-putih);
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    border-radius: 14px;
-    box-shadow: 0 12px 35px rgba(30, 41, 59, 0.10);
-}
-
-.login-container h1 {
-    margin: 0 0 25px;
-    padding-bottom: 18px;
-
-    border-bottom: 1px solid var(--warna-border);
-
-    text-align: center;
-    font-size: 27px;
-    font-weight: 700;
-    color: var(--warna-utama);
-}
-
-.login-container .form-group {
-    margin-bottom: 18px;
-}
-
-.login-container label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--warna-teks);
-}
-
-.login-container input {
-    display: block;
-    width: 100%;
-    padding: 12px 13px;
-
-    border: 1px solid #cbd5e1;
+.container .pagination-wrap nav a,
+.container .pagination-wrap nav span[aria-current="page"] span,
+.container .pagination-wrap nav span[aria-disabled="true"] span {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
     border-radius: 7px;
-
-    background-color: #fff;
-    color: var(--warna-teks);
-
-    font-family: inherit;
-    font-size: 14px;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    color: var(--forest);
+    text-decoration: none;
 }
 
-.login-container input::placeholder {
-    color: #94a3b8;
+.container .pagination-wrap nav a:hover {
+    background: var(--sage-light);
+    border-color: var(--sage);
 }
 
-.login-container input:focus {
-    outline: none;
-    border-color: var(--warna-aksen);
-    box-shadow: 0 0 0 3px rgba(71, 125, 187, 0.14);
+.container .pagination-wrap nav span[aria-current="page"] span {
+    background: var(--forest);
+    border-color: var(--forest);
+    color: var(--white);
 }
 
-.login-container .tombol {
-    width: 100%;
-    padding: 11px 16px;
-    margin-top: 3px;
-    font-size: 15px;
+.container .pagination-wrap nav span[aria-disabled="true"] span {
+    color: #879187;
 }
 
+/* ================= DASHBOARD STATISTIK ================= */
 
-/* =========================================
-   16. RESPONSIVE TABLET
-========================================= */
+/* Selector dibuat lebih spesifik agar dapat menyesuaikan
+   style dashboard yang sudah ditulis di Blade. */
 
-@media (max-width: 768px) {
+.container .dashboard-statistik {
+    color: var(--text-primary);
+}
 
-    body {
-        padding: 15px;
-    }
+.container .dashboard-statistik .subjudul {
+    color: var(--text-muted);
+}
 
+.container .dashboard-statistik .statistik-card {
+    border-color: var(--border);
+    border-radius: 12px;
+    background: var(--white);
+    box-shadow: 0 4px 16px rgba(35, 66, 54, 0.04);
+}
+
+.container .dashboard-statistik .statistik-card h4 {
+    color: var(--text-muted);
+}
+
+.container .dashboard-statistik .statistik-card .angka {
+    color: var(--forest);
+}
+
+.container .dashboard-statistik .dashboard-table th {
+    background: var(--forest);
+    color: var(--white);
+}
+
+.container .dashboard-statistik .dashboard-table tbody tr:nth-child(even) {
+    background: var(--table-stripe);
+}
+
+.container .dashboard-statistik .dashboard-table tbody tr:hover {
+    background: var(--sage-light);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 760px) {
     .container {
-        min-height: auto;
-        margin: 20px auto;
-        padding: 20px;
+        width: calc(100% - 20px);
+        margin: 10px auto;
+        padding: 18px 14px;
     }
 
-    h1 {
-        font-size: 25px;
-    }
-
-    h2 {
-        font-size: 22px;
-    }
-
-    h3 {
-        font-size: 20px;
-    }
-
-    .nav ul {
-        gap: 8px;
-    }
-
-    .nav ul li a {
-        padding: 9px 14px;
-        font-size: 14px;
-    }
-
-    table th,
-    table td {
-        padding: 10px;
-        font-size: 13px;
-    }
-
-    .kolom-nomor {
-        width: 12%;
-    }
-
-    .kolom-nama {
-        width: 43%;
-    }
-
-    .kolom-aksi {
-        width: 45%;
-    }
-
-    .aksi-container {
-        gap: 5px;
-    }
-
-    .aksi-container .tombol {
-        padding: 7px 8px;
-        font-size: 12px;
-    }
-
-    .login-container {
-        padding: 25px;
-    }
-}
-
-
-/* =========================================
-   17. RESPONSIVE HP
-========================================= */
-
-@media (max-width: 480px) {
-
-    body {
-        padding: 12px;
-    }
-
-    .container {
-        margin: 12px auto;
-        padding: 14px;
-        border-radius: 10px;
-    }
-
-    h1 {
-        font-size: 21px;
-        padding-bottom: 15px;
-    }
-
-    .nav ul {
+    .app-header {
+        align-items: flex-start;
         flex-direction: column;
-        align-items: stretch;
+        gap: 16px;
     }
 
-    .nav ul li a {
-        display: block;
+    .account-actions {
         width: 100%;
+        justify-content: space-between;
     }
 
-    table {
+    .nav ul {
+        justify-content: flex-start;
+    }
+
+    .nav a {
+        padding: 9px 12px;
+    }
+
+    .container table {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
     }
 
     .aksi-container {
-        gap: 4px;
+        min-width: max-content;
     }
 
-    .aksi-container .tombol {
-        padding: 6px 7px;
-        font-size: 11px;
+    .container .filter-buku input[type="search"] {
+        flex-basis: 100%;
     }
 
-    .login-container {
-        max-width: 100%;
-        padding: 22px;
+    .container .filter-buku select {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* =====================================================
+   [BARU] AUTHENTICATION — FOREST + SAGE
+   Untuk halaman login dan registrasi saja
+   ===================================================== */
+
+body.auth-page {
+    min-height: 100vh;
+    margin: 0;
+    padding: 32px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ivory, #F5F7F0);
+    color: var(--text-primary, #26382D);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Kartu form */
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 32px;
+    box-sizing: border-box;
+
+    background: #FFFFFF;
+    border: 1px solid var(--border, #DDE5D9);
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(35, 66, 54, 0.09);
+}
+
+/* Judul form */
+.auth-card h1,
+.auth-card h2 {
+    margin: 0 0 26px;
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid var(--border, #DDE5D9);
+    color: var(--forest, #234236);
+
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* Susunan elemen form */
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+}
+
+/* Label input */
+.auth-card label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-primary, #26382D);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Input email, password, dan input teks */
+.auth-card input[type="email"],
+.auth-card input[type="password"],
+.auth-card input[type="text"],
+.auth-card input:not([type]) {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 13px;
+    box-sizing: border-box;
+
+    border: 1px solid #CBD5C8;
+    border-radius: 8px;
+    background: #FFFFFF;
+
+    color: #26382D;
+    font: inherit;
+    font-size: 14px;
+}
+
+.auth-card input::placeholder {
+    color: #879187;
+}
+
+.auth-card input:focus {
+    outline: none;
+    border-color: #6B8F71;
+    box-shadow: 0 0 0 3px rgba(107, 143, 113, 0.16);
+}
+
+/* Tombol login dan registrasi */
+.auth-card button[type="submit"],
+.auth-card .tombol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 46px;
+    margin-top: 6px;
+    padding: 11px 16px;
+
+    border: 1px solid #234236;
+    border-radius: 8px;
+    background: #234236;
+    color: #FFFFFF;
+
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.auth-card button[type="submit"]:hover,
+.auth-card .tombol:hover {
+    border-color: #6B8F71;
+    background: #6B8F71;
+    color: #FFFFFF;
+}
+
+/* Tautan registrasi dan login */
+.auth-card .auth-links {
+    margin: 22px 0 0;
+    color: #68766B;
+    font-size: 14px;
+    text-align: center;
+}
+
+.auth-card a {
+    color: #234236;
+    font-weight: 600;
+}
+
+.auth-card a:hover {
+    color: #6B8F71;
+}
+
+/* Pesan validasi */
+.auth-card .error,
+.auth-card .text-danger {
+    color: #B91C1C;
+    font-size: 13px;
+}
+
+.auth-card .success {
+    padding: 10px 12px;
+    border: 1px solid #C5D8C1;
+    border-radius: 8px;
+    background: #EAF0E7;
+    color: #234236;
+}
+
+/* Tampilan layar kecil */
+@media (max-width: 480px) {
+    body.auth-page {
+        padding: 18px 12px;
+    }
+
+    .auth-card {
+        padding: 24px 20px;
         border-radius: 12px;
     }
 
-    .login-container h1 {
-        font-size: 24px;
+    .auth-card h1,
+    .auth-card h2 {
+        font-size: 25px;
     }
-}
-/* =====================================
-   PESAN VALIDASI FORM
-===================================== */
-
-.error-message {
-    display: block;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    color: #dc3545;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.success-message {
-    margin-bottom: 18px;
-    padding: 12px 14px;
-
-    border: 1px solid #badbcc;
-    border-radius: 6px;
-
-    background-color: #d1e7dd;
-    color: #0f5132;
-
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/* =====================================
-   TAUTAN LOGIN DAN REGISTRASI
-===================================== */
-
-.register-link {
-    margin-top: 20px;
-    margin-bottom: 0;
-
-    text-align: center;
-    font-size: 14px;
-    color: #666;
-}
-
-.register-link a {
-    color: #34495e;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.register-link a:hover {
-    color: #243748;
-    text-decoration: underline;
-}
-
-/* =====================================
-   FORM LOGIN DAN REGISTRASI
-===================================== */
-
-.login-container .form-group {
-    margin-bottom: 16px;
-}
-
-.login-container label {
-    display: block;
-    margin-bottom: 7px;
-}
-
-.login-container input {
-    width: 100%;
-    display: block;
-}
-
-.login-container .tombol {
-    width: 100%;
-    padding: 11px 16px;
-    font-size: 15px;
 }

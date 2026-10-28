@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -5,27 +6,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Form Login</title>
+    <!-- [DIUBAH] Judul tab browser -->
+    <title>Pustaka | Login</title>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
-<body>
+<!-- [DIUBAH 1] Aktifkan styling khusus halaman autentikasi -->
+<body class="auth-page">
 
-    <div class="login-container">
+    <!-- [DIUBAH 2] Tambahkan auth-card, pertahankan login-container -->
+    <div class="login-container auth-card">
 
         <h1>Form Login</h1>
 
         {{-- Pesan registrasi berhasil --}}
         @if (session('success'))
-            <div class="success-message">
+            <!-- [DIUBAH 3] Tambahkan class success untuk styling -->
+            <div class="success-message success">
                 {{ session('success') }}
             </div>
         @endif
 
         {{-- Pesan kesalahan login --}}
         @if ($errors->has('email'))
-            <div class="error-message">
+            <div class="error-message error">
                 {{ $errors->first('email') }}
             </div>
         @endif
@@ -60,13 +65,15 @@
                 >
             </div>
 
+            {{-- Tombol login tetap menggunakan route yang lama --}}
             <button type="submit" class="tombol">
                 Login
             </button>
 
         </form>
 
-        <p class="register-link">
+        <!-- [DIUBAH 4] Tambahkan auth-links -->
+        <p class="register-link auth-links">
             Belum memiliki akun?
             <a href="{{ route('register') }}">Registrasi di sini</a>
         </p>

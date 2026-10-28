@@ -12,7 +12,7 @@
 @endif
 
 {{-- =====================================================
-     [BARU] FORM PENCARIAN DAN FILTER BUKU
+     PENCARIAN DAN FILTER — DIPERTAHANKAN
      ===================================================== --}}
 
 <style>
@@ -40,6 +40,50 @@
     .filter-buku select {
         min-width: 160px;
     }
+
+    /* [BARU] Tampilan navigasi pagination */
+    .pagination-wrap {
+        margin: 22px 0;
+    }
+
+    .pagination-wrap nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .pagination-wrap nav > div {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .pagination-wrap nav a,
+    .pagination-wrap nav span[aria-current="page"] span,
+    .pagination-wrap nav span[aria-disabled="true"] span {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #334155;
+    }
+
+    .pagination-wrap nav a:hover {
+        background: #e2e8f0;
+    }
+
+    .pagination-wrap nav span[aria-current="page"] span {
+        background: #334155;
+        color: #fff;
+        border-color: #334155;
+    }
+
+    .pagination-wrap nav span[aria-disabled="true"] span {
+        color: #94a3b8;
+    }
 </style>
 
 <form
@@ -47,7 +91,7 @@
     method="GET"
     class="filter-buku"
 >
-    {{-- [BARU] Pencarian judul atau pengarang --}}
+    {{-- Pencarian judul atau pengarang --}}
     <input
         type="search"
         name="q"
@@ -56,7 +100,7 @@
         aria-label="Cari judul atau pengarang"
     >
 
-    {{-- [BARU] Dropdown kategori --}}
+    {{-- Filter kategori --}}
     <select name="kategori_id" aria-label="Filter kategori">
         <option value="">Semua Kategori</option>
 
@@ -73,7 +117,7 @@
         @endforeach
     </select>
 
-    {{-- [BARU] Dropdown penerbit --}}
+    {{-- Filter penerbit --}}
     <select name="penerbit_id" aria-label="Filter penerbit">
         <option value="">Semua Penerbit</option>
 
@@ -94,7 +138,7 @@
         Cari / Filter
     </button>
 
-    {{-- [BARU] Tampil hanya saat ada kriteria pencarian/filter --}}
+    {{-- Reset pencarian dan filter --}}
     @if (
         ($keyword ?? '') !== '' ||
         ($kategoriFilter ?? '') !== '' ||
@@ -106,19 +150,19 @@
     @endif
 </form>
 
-{{-- [BARU] Informasi jumlah hasil saat filter digunakan --}}
 @if (
     ($keyword ?? '') !== '' ||
     ($kategoriFilter ?? '') !== '' ||
     ($penerbitFilter ?? '') !== ''
 )
     <p>
-        Hasil: <strong>{{ $allBuku->count() }}</strong> buku ditemukan.
+        Total hasil pencarian:
+        <strong>{{ $allBuku->total() }}</strong> buku.
     </p>
 @endif
 
 {{-- =====================================================
-     TABEL BUKU LAMA — TETAP DIPERTAHANKAN
+     TABEL BUKU — DIPERTAHANKAN
      ===================================================== --}}
 
 <table>
@@ -137,29 +181,22 @@
     <tbody>
         @forelse ($allBuku as $key => $r)
             <tr>
-                {{-- Kolom 1: Nomor --}}
-                <td>{{ $key + 1 }}</td>
+                {{-- [DIUBAH] Nomor urut berlanjut antarhalaman --}}
+                <td>{{ $allBuku->firstItem() + $key }}</td>
 
-                {{-- Kolom 2: Judul Buku --}}
                 <td>{{ $r->judul }}</td>
-
-                {{-- Kolom 3: Pengarang --}}
                 <td>{{ $r->pengarang }}</td>
-
-                {{-- Kolom 4: Tahun --}}
                 <td>{{ $r->tahun_terbit }}</td>
 
-                {{-- Kolom 5: Penerbit --}}
                 <td>
                     {{ $r->penerbit?->nama_penerbit ?? '-' }}
                 </td>
 
-                {{-- Kolom 6: Kategori --}}
                 <td>
                     {{ $r->kategori?->nama_kategori ?? '-' }}
                 </td>
 
-                {{-- Kolom 7: Aksi — TIDAK DIUBAH --}}
+                {{-- Tombol CRUD tetap dipertahankan --}}
                 <td>
                     <div class="aksi-container">
                         <a
@@ -210,5 +247,13 @@
         @endforelse
     </tbody>
 </table>
+
+
+
+@if ($allBuku->hasPages())
+    <div class="pagination-wrap">
+        {{ $allBuku->links() }}
+    </div>
+@endif
 
 @include('layout.footer')

@@ -5,7 +5,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\AuthManualController;
-
+use App\Http\Controllers\DashboardController;
 // Halaman utama
 Route::get('/', function () {
     return view('welcome');
@@ -35,3 +35,7 @@ Route::post('/logout', [AuthManualController::class, 'logout'])
 Route::resource('kategori', KategoriController::class);
 Route::resource('penerbit', PenerbitController::class);
 Route::resource('buku', BukuController::class);
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');

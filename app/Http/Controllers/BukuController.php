@@ -10,21 +10,22 @@ use Illuminate\Http\Request;
 class BukuController extends Controller
 {
     /**
-     * Menampilkan daftar buku dan menangani pencarian/filter.
+     * Menampilkan daftar buku dengan pencarian,
+     * filter, dan pagination.
      */
     public function index(Request $request)
     {
-        // [BARU] Ambil kata kunci pencarian.
+        // [DIPERTAHANKAN] Kata kunci pencarian.
         $keyword = trim((string) $request->query('q', ''));
 
-        // [BARU] Ambil filter kategori dan penerbit dari URL.
+        // [DIPERTAHANKAN] Filter kategori dan penerbit.
         $kategoriFilter = $request->query('kategori_id', '');
         $penerbitFilter = $request->query('penerbit_id', '');
 
-        // Query awal tetap memuat relasi kategori dan penerbit.
+        // Memuat relasi kategori dan penerbit.
         $query = Buku::with(['kategori', 'penerbit']);
 
-        // [DIPERTAHANKAN] Pencarian berdasarkan judul atau pengarang.
+        // [DIPERTAHANKAN] Pencarian judul atau pengarang.
         if ($keyword !== '') {
             $query->where(function ($search) use ($keyword) {
                 $search->where(
@@ -39,25 +40,34 @@ class BukuController extends Controller
             });
         }
 
-        // [BARU] Filter berdasarkan kategori jika dipilih.
+        // [DIPERTAHANKAN] Filter berdasarkan kategori.
         if ($kategoriFilter !== '') {
             $query->where('kategori_id', $kategoriFilter);
         }
 
-        // [BARU] Filter berdasarkan penerbit jika dipilih.
+        // [DIPERTAHANKAN] Filter berdasarkan penerbit.
         if ($penerbitFilter !== '') {
             $query->where('penerbit_id', $penerbitFilter);
         }
 
-        // [DIPERTAHANKAN] Gunakan $allBuku agar cocok dengan Blade.
-        $allBuku = $query->get();
+        // ==================================================
+        // [DIUBAH] SEBELUMNYA:
+        // $allBuku = $query->get();
+        //
+        // [BARU] Tampilkan 10 buku per halaman.
+        // withQueryString() menjaga pencarian dan filter
+        // ketika pengguna berpindah halaman.
+        // ==================================================
+        $allBuku = $query
+            ->orderBy('id')
+            ->paginate(10)
+            ->withQueryString();
 
-        // [BARU] Ambil opsi dropdown dari database.
+        // [DIPERTAHANKAN] Data untuk dropdown filter.
         $kategoris = Kategori::orderBy('nama_kategori')->get();
         $penerbits = Penerbit::orderBy('nama_penerbit')->get();
 
-        // [DIUBAH] Kirim semua data yang dibutuhkan oleh Blade.
-        // Pertahankan nama view yang saat ini digunakan proyekmu.
+        // Pertahankan nama view yang digunakan proyekmu.
         return view('buku.index', compact(
             'allBuku',
             'keyword',
