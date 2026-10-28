@@ -10,30 +10,62 @@ use Illuminate\Http\Request;
 class BukuController extends Controller
 {
     /**
-     * Menampilkan seluruh data buku.
+     * Menampilkan daftar buku dan menangani pencarian/filter.
      */
     public function index(Request $request)
     {
-    // [BARU] Mengambil kata kunci pencarian dari URL.
-    $keyword = trim((string) $request->query('q', ''));
+        // [BARU] Ambil kata kunci pencarian.
+        $keyword = trim((string) $request->query('q', ''));
 
-    // Memuat relasi kategori dan penerbit.
-    $query = Buku::with(['kategori', 'penerbit']);
+        // [BARU] Ambil filter kategori dan penerbit dari URL.
+        $kategoriFilter = $request->query('kategori_id', '');
+        $penerbitFilter = $request->query('penerbit_id', '');
 
-    // [BARU] Mencari berdasarkan judul atau pengarang.
-    // Nama kolom harus sesuai dengan database dan model.
-    if ($keyword !== '') {
-        $query->where(function ($search) use ($keyword) {
-            $search->where('judul', 'like', '%' . $keyword . '%')
-                   ->orWhere('pengarang', 'like', '%' . $keyword . '%');
-        });
-    }
+        // Query awal tetap memuat relasi kategori dan penerbit.
+        $query = Buku::with(['kategori', 'penerbit']);
 
-    // [DIUBAH] Gunakan nama variabel yang dipakai Blade.
-    $allBuku = $query->get();
+        // [DIPERTAHANKAN] Pencarian berdasarkan judul atau pengarang.
+        if ($keyword !== '') {
+            $query->where(function ($search) use ($keyword) {
+                $search->where(
+                    'judul',
+                    'like',
+                    '%' . $keyword . '%'
+                )->orWhere(
+                    'pengarang',
+                    'like',
+                    '%' . $keyword . '%'
+                );
+            });
+        }
 
-    // [DIUBAH] Kirim $allBuku dan $keyword ke halaman.
-    return view('Buku.index', compact('allBuku', 'keyword'));
+        // [BARU] Filter berdasarkan kategori jika dipilih.
+        if ($kategoriFilter !== '') {
+            $query->where('kategori_id', $kategoriFilter);
+        }
+
+        // [BARU] Filter berdasarkan penerbit jika dipilih.
+        if ($penerbitFilter !== '') {
+            $query->where('penerbit_id', $penerbitFilter);
+        }
+
+        // [DIPERTAHANKAN] Gunakan $allBuku agar cocok dengan Blade.
+        $allBuku = $query->get();
+
+        // [BARU] Ambil opsi dropdown dari database.
+        $kategoris = Kategori::orderBy('nama_kategori')->get();
+        $penerbits = Penerbit::orderBy('nama_penerbit')->get();
+
+        // [DIUBAH] Kirim semua data yang dibutuhkan oleh Blade.
+        // Pertahankan nama view yang saat ini digunakan proyekmu.
+        return view('buku.index', compact(
+            'allBuku',
+            'keyword',
+            'kategoris',
+            'penerbits',
+            'kategoriFilter',
+            'penerbitFilter'
+        ));
     }
 
     /**

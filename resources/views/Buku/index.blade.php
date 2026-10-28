@@ -1,3 +1,4 @@
+
 @include('layout.header')
 
 <h3>Buku</h3>
@@ -9,32 +10,117 @@
 @if (session('success'))
     <p class="success">{{ session('success') }}</p>
 @endif
-        <form action="{{ route('buku.index') }}" method="GET">
-            <input
-                type="search"
-                name="q"
-                placeholder="Cari judul buku atau pengarang..."
-                value="{{ $keyword ?? request('q', '') }}"
+
+{{-- =====================================================
+     [BARU] FORM PENCARIAN DAN FILTER BUKU
+     ===================================================== --}}
+
+<style>
+    .filter-buku {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin: 16px 0;
+    }
+
+    .filter-buku input,
+    .filter-buku select {
+        padding: 9px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font: inherit;
+    }
+
+    .filter-buku input {
+        min-width: 220px;
+        flex: 1;
+    }
+
+    .filter-buku select {
+        min-width: 160px;
+    }
+</style>
+
+<form
+    action="{{ route('buku.index') }}"
+    method="GET"
+    class="filter-buku"
+>
+    {{-- [BARU] Pencarian judul atau pengarang --}}
+    <input
+        type="search"
+        name="q"
+        placeholder="Cari judul atau pengarang..."
+        value="{{ $keyword ?? request('q', '') }}"
+        aria-label="Cari judul atau pengarang"
+    >
+
+    {{-- [BARU] Dropdown kategori --}}
+    <select name="kategori_id" aria-label="Filter kategori">
+        <option value="">Semua Kategori</option>
+
+        @foreach ($kategoris as $kategori)
+            <option
+                value="{{ $kategori->id }}"
+                @selected(
+                    (string) ($kategoriFilter ?? '') ===
+                    (string) $kategori->id
+                )
             >
+                {{ $kategori->nama_kategori }}
+            </option>
+        @endforeach
+    </select>
 
-            <button type="submit" class="tombol">
-                Cari
-            </button>
+    {{-- [BARU] Dropdown penerbit --}}
+    <select name="penerbit_id" aria-label="Filter penerbit">
+        <option value="">Semua Penerbit</option>
 
-            @if (request('q'))
-                <a href="{{ route('buku.index') }}" class="tombol">
-                    Reset
-                </a>
-            @endif
-        </form>
+        @foreach ($penerbits as $penerbit)
+            <option
+                value="{{ $penerbit->id }}"
+                @selected(
+                    (string) ($penerbitFilter ?? '') ===
+                    (string) $penerbit->id
+                )
+            >
+                {{ $penerbit->nama_penerbit }}
+            </option>
+        @endforeach
+    </select>
 
-        @if (request('q'))
-            <p>
-                Hasil pencarian untuk
-                <strong>{{ request('q') }}</strong>:
-                {{ $allBuku->count() }} buku ditemukan.
-            </p>
-        @endif
+    <button type="submit" class="tombol">
+        Cari / Filter
+    </button>
+
+    {{-- [BARU] Tampil hanya saat ada kriteria pencarian/filter --}}
+    @if (
+        ($keyword ?? '') !== '' ||
+        ($kategoriFilter ?? '') !== '' ||
+        ($penerbitFilter ?? '') !== ''
+    )
+        <a href="{{ route('buku.index') }}" class="tombol">
+            Reset
+        </a>
+    @endif
+</form>
+
+{{-- [BARU] Informasi jumlah hasil saat filter digunakan --}}
+@if (
+    ($keyword ?? '') !== '' ||
+    ($kategoriFilter ?? '') !== '' ||
+    ($penerbitFilter ?? '') !== ''
+)
+    <p>
+        Hasil: <strong>{{ $allBuku->count() }}</strong> buku ditemukan.
+    </p>
+@endif
+
+{{-- =====================================================
+     TABEL BUKU LAMA — TETAP DIPERTAHANKAN
+     ===================================================== --}}
+
 <table>
     <thead>
         <tr>
@@ -73,7 +159,7 @@
                     {{ $r->kategori?->nama_kategori ?? '-' }}
                 </td>
 
-                {{-- Kolom 7: Aksi --}}
+                {{-- Kolom 7: Aksi — TIDAK DIUBAH --}}
                 <td>
                     <div class="aksi-container">
                         <a
@@ -107,16 +193,20 @@
                 </td>
             </tr>
         @empty
-           <tr>
-        <td colspan="7" class="data-kosong">
-            @if (request('q'))
-                Tidak ada buku yang cocok dengan kata kunci
-                "{{ request('q') }}".
-            @else
-                Belum ada data buku.
-            @endif
-        </td>
-    </tr>
+            <tr>
+                <td colspan="7" class="data-kosong">
+                    @if (
+                        ($keyword ?? '') !== '' ||
+                        ($kategoriFilter ?? '') !== '' ||
+                        ($penerbitFilter ?? '') !== ''
+                    )
+                        Tidak ada buku yang sesuai dengan pencarian
+                        atau filter yang dipilih.
+                    @else
+                        Belum ada data buku.
+                    @endif
+                </td>
+            </tr>
         @endforelse
     </tbody>
 </table>
