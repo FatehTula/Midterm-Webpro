@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -5,17 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Form Registrasi</title>
+    <!-- [DIUBAH] Judul tab browser -->
+    <title>Pustaka | Registrasi</title>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
-<body>
+<!-- [DIUBAH] Mengaktifkan layout khusus autentikasi -->
+<body class="auth-page">
 
-    <div class="login-container">
+    <!-- [DIUBAH] Menambahkan class auth-card -->
+    <div class="login-container auth-card">
 
         <h1>Form Registrasi</h1>
 
+        <!-- Form registrasi tetap menggunakan route lama -->
         <form action="{{ route('registerProses') }}" method="POST">
             @csrf
 
@@ -29,6 +34,7 @@
                     name="name"
                     placeholder="Masukkan nama..."
                     value="{{ old('name') }}"
+                    autocomplete="name"
                     required
                 >
 
@@ -47,6 +53,7 @@
                     name="email"
                     placeholder="Masukkan email..."
                     value="{{ old('email') }}"
+                    autocomplete="email"
                     required
                 >
 
@@ -64,6 +71,8 @@
                     id="password"
                     name="password"
                     placeholder="Minimal 8 karakter..."
+                    autocomplete="new-password"
+                    minlength="8"
                     required
                 >
 
@@ -83,17 +92,21 @@
                     id="password_confirmation"
                     name="password_confirmation"
                     placeholder="Ulangi password..."
+                    autocomplete="new-password"
+                    minlength="8"
                     required
                 >
             </div>
 
+            {{-- Tombol registrasi --}}
             <button type="submit" class="tombol">
                 Registrasi
             </button>
 
         </form>
 
-        <p class="register-link">
+        <!-- [DIUBAH] Menyesuaikan styling tautan -->
+        <p class="register-link auth-links">
             Sudah memiliki akun?
             <a href="{{ route('login') }}">Login di sini</a>
         </p>
