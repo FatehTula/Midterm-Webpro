@@ -1,0 +1,350 @@
+
+/* =====================================
+   PENGATURAN DASAR
+===================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f7f7;
+    color: #444;
+}
+
+
+/* =====================================
+   CONTAINER UTAMA
+===================================== */
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    min-height: 490px;
+    margin: 160px auto 30px;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =====================================
+   JUDUL UTAMA
+===================================== */
+
+h1 {
+    margin: 0 0 10px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 30px;
+    color: #555;
+}
+
+
+/* =====================================
+   NAVIGASI
+===================================== */
+
+.nav {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    list-style: none;
+    margin: 0;
+    padding: 0 0 12px;
+}
+
+.nav ul li a {
+    display: inline-block;
+    padding: 10px 20px;
+
+    background-color: #34495e;
+    color: #fff;
+
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.nav ul li a:hover {
+    background-color: #243748;
+}
+
+
+/* =====================================
+   SUBJUDUL
+===================================== */
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #555;
+}
+
+
+/* =====================================
+   TOMBOL UMUM
+===================================== */
+
+.tombol {
+    display: inline-block;
+    padding: 8px 10px;
+
+    border: none;
+    border-radius: 6px;
+
+    background-color: #34495e;
+    color: #fff;
+
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.25;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tombol:hover {
+    background-color: #243748;
+}
+
+
+/* =====================================
+   TABEL
+===================================== */
+
+table {
+    width: 100%;
+    margin-top: 30px;
+
+    border-collapse: collapse;
+    table-layout: auto;
+
+    background-color: #fff;
+}
+
+table th,
+table td {
+    padding: 12px;
+    border: 1px solid #d9d9d9;
+
+    text-align: left;
+    vertical-align: middle;
+}
+
+table th {
+    background-color: #34495e;
+    color: #fff;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+table td {
+    font-size: 16px;
+}
+
+/* Lebar kolom nomor */
+.kolom-nomor {
+    width: 16%;
+}
+
+/* Lebar kolom nama kategori */
+.kolom-nama {
+    width: 46%;
+}
+
+/* Lebar kolom aksi */
+.kolom-aksi {
+    width: 38%;
+}
+
+
+/* =====================================
+   TOMBOL DETAIL, EDIT, DAN HAPUS
+===================================== */
+
+.aksi-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    flex-wrap: nowrap;
+    gap: 10px;
+
+    width: 100%;
+    white-space: nowrap;
+}
+
+/* Form hapus tidak membuat baris baru */
+.aksi-container .form-hapus {
+    display: inline-flex;
+    align-items: center;
+
+    flex: 0 0 auto;
+
+    margin: 0;
+    padding: 0;
+}
+
+/* Semua tombol aksi memiliki ukuran konsisten */
+.aksi-container .tombol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    margin: 0;
+    padding: 8px 10px;
+
+    border: none;
+    border-radius: 6px;
+
+    background-color: #34495e;
+    color: #fff;
+
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.25;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.aksi-container .tombol:hover {
+    background-color: #243748;
+}
+
+
+/* =====================================
+   PESAN KETIKA DATA KOSONG
+===================================== */
+
+.data-kosong {
+    padding: 20px;
+    text-align: center;
+    color: #777;
+}
+
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.footer {
+    margin-top: 12px;
+    padding: 14px 0;
+
+    border-top: 1px solid #e5e5e5;
+
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+
+    color: #333;
+}
+
+
+/* =====================================
+   RESPONSIVE UNTUK LAYAR KECIL
+===================================== */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        margin: 30px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .nav ul {
+        gap: 10px;
+    }
+
+    .nav ul li a {
+        padding: 8px 12px;
+        font-size: 15px;
+    }
+
+    table th,
+    table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .kolom-nomor {
+        width: 12%;
+    }
+
+    .kolom-nama {
+        width: 43%;
+    }
+
+    .kolom-aksi {
+        width: 45%;
+    }
+
+    .aksi-container {
+        gap: 6px;
+    }
+
+    .aksi-container .tombol {
+        padding: 7px 8px;
+        font-size: 13px;
+    }
+}
+
+
+/* =====================================
+   RESPONSIVE UNTUK HP KECIL
+===================================== */
+
+@media (max-width: 480px) {
+
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    .aksi-container {
+        gap: 4px;
+    }
+
+    .aksi-container .tombol {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
